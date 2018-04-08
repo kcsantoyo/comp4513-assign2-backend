@@ -11,7 +11,7 @@ module.exports = {
             var schema = new mongoose.Schema({symbol: String, name: String});
             var Price = mongoose.model('avgClosePrice', 
                                       new mongoose.Schema({
-                name: String}));
+                name: String}, {collection: 'prices'}));
 
             app.route('/api/prices/:sym/avgclose')
                 .get(function(req, resp) {
