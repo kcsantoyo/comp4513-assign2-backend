@@ -4,8 +4,9 @@ var mongoose = require("mongoose");
 var express = require('express');
 var parser = require('body-parser');
 
-var companySingleRouter = require("./routes/company-single-router.js");
-var companyListRouter = require("./routes/company-list-router.js");
+
+var companySingleRouter = require('routes/company-single-router.js');
+var companyListRouter = require('routes/company-list-router.js');
 
 var uristring = 
     process.env.MONGOLAB_URI ||
