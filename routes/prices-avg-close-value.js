@@ -9,15 +9,16 @@ module.exports = {
             });
 
             var schema = new mongoose.Schema({symbol: String, name: String});
-            var Comp = mongoose.model('avgClosePrice', 
-                                      new mongoose.Schema({name: String, avgClose: {$avg: 'close'}}{collection: 'prices'}));
+            var Price = mongoose.model('avgClosePrice', 
+                                      new mongoose.Schema({
+                name: String}));
 
-            app.route('/api/prices/:sym/close')
+            app.route('/api/prices/:sym/avgclose')
                 .get(function(req, resp) {
-                Comp.find({name: req.params.sym}, function(err, data) { 
-                    if (err) { resp.json({ message : 'Unable to find Companies' }); } 
-                    else { resp.json(data); }
+                Price.aggregate([{$group: {
+                                    "name": req.params.sym,
+                                    "avg": {$avg: "close"}
+                                }}]);
                 });
-            });
         }
 }
