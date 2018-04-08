@@ -20,13 +20,10 @@ module.exports = {
         });
         
         var prce = mongoose.model('prices', priceSchema);
-        app.route('/api/prices/:sym/:mnth')
+        app.route('/api/prices/:mnth/:sym')
             .get(function(req, resp){
-            prce.find().where('name')
-                .eq(req.params.sym)
-                .where('date', "/" + req.params.mnth + "/")
-                .exec(function(err, data){
-                if (err) { resp.json({ message : 'Prices not found' }); }
+            prce.find({symbol : req.params.sym, date : {$regex: "/" + req.params.mnth + '$/'}}, function(err, data) {
+                if (err) { resp.json({ message : 'Unable to find prices' }); } 
                 else { resp.json(data); }
             });
     }
