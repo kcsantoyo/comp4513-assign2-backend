@@ -24,9 +24,10 @@ module.exports = {
             .get(function(req, resp){
             prce.find().where('name')
                 .eq(req.params.sym)
+                .where('date', /req.params.mnth/)
                 .exec(function(err, data){
-                if(err) { resp.json({ message : "Prices not found"}); }
+                if (err) { resp.json({ message : 'Prices not found' }); }
                 else { resp.json(data); }
             });
-        }
+    }
 }
