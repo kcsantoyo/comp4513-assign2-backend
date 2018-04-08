@@ -11,8 +11,7 @@ module.exports = {
             var schema = new mongoose.Schema({symbol: String, name: String});
             var Comp = mongoose.model('companiesList', 
                                       new mongoose.Schema(
-                                            {symbol: String, name: String}, 
-                                            {collection: "companies"}
+                                            {symbol: String, name: String}
                                         ));
 
             app.route('/api/companies/')
