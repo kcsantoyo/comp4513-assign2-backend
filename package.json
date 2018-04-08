@@ -1,5 +1,5 @@
 {
-  "name": "Assign 2 Server",
+  "name": "assign2server",
   "version": "0.3.0",
   "description": "A simple Node.js app using Express",
   "engines": {
