@@ -16,13 +16,13 @@ module.exports = {
             low: Number,
             close: Number,
             volume: Number,
-            symbol: String
+            name: String
         });
         
         var prce = mongoose.model('prices', priceSchema);
         app.route('/api/prices/:sym')
             .get(function(req, resp){
-            prce.find({symbol : req.params.sym}, function(err, data) {
+            prce.find({name : req.params.sym}, function(err, data) {
                 if (err) { resp.json({ message : 'Unable to find prices' }); } 
                 else { resp.json(data); }
             });
