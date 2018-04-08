@@ -8,8 +8,12 @@ module.exports = {
                 else { console.log ('Succeeded connected to: ' + uristring); }
             });
 
-            var Comp = mongoose.model('companies', new Schema({symbol: String,
-                                                               name: String}));
+            var schema = new mongoose.Schema({symbol: String, name: String});
+            var Comp = mongoose.model('companiesList', 
+                                      new mongoose.Schema(
+                                            {symbol: String, name: String}, 
+                                            {collection: "companies"}
+                                        ));
 
             app.route('/api/companies/')
                 .get(function(req, resp) {
