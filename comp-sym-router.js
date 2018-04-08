@@ -1,8 +1,35 @@
 var path = require('path');
 module.exports = {
     
-    defineRouting: function(app, comp)
+    defineRouting: function(app, mongoose)
     {
+        var uristring = 
+        process.env.MONGOLAB_URI ||
+        process.env.MONGOHQ_URL ||
+        process.env.MONGODB_URI ||
+        'mongodb://localhost/HelloMongoose';
+        
+        mongoose.connect(uristring, function (err, res) {
+      if (err) {
+      console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+      } else {
+      console.log ('Succeeded connected to: ' + uristring);
+      }
+    });
+        
+        var compSchema = new mongoose.Schema({
+    id: Number,
+    symbol: String,
+    name: String,
+    sector: String,
+    subind: String,
+    addr: String,
+    dteAdd: String,
+    frqncy: Number
+});
+        
+        var Comp = mongoose.model('companies', compSchema);
+        
         app.route('/api/companies/:sym')
         .get(function(req, resp) {
             Comp.find({symbol : req.params.sym}, function(err, data) { 
