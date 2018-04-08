@@ -18,8 +18,8 @@ module.exports = {
                 Price.aggregate([
                     { $match: { name: req.params.sym }},
                     { $group: { 
-                                _id: 'name', 
-                                avg: {$avg: 'close'}
+                                _id: '$name', 
+                                avg: {$avg: '$close'}
                               }}
                     ]).exec();
                 });
