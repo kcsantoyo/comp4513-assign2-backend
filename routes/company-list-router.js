@@ -12,7 +12,7 @@ module.exports = {
             var Comp = mongoose.model('companiesList', 
                                       new mongoose.Schema(
                                             {symbol: String, name: String}, 
-                                        {collection: 'companoes'}));
+                                        {collection: 'companies'}));
 
             app.route('/api/companies/')
                 .get(function(req, resp) {
