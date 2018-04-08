@@ -22,7 +22,7 @@ module.exports = {
         var prce = mongoose.model('prices', priceSchema);
         app.route('/api/prices/:mnth/:sym')
             .get(function(req, resp){
-            prce.find({symbol : req.params.sym, date : {$regex: "/" + req.params.mnth + '$/'}}, function(err, data) {
+            prce.find({name : req.params.sym, date : new RegExp(req.params.mnth)}, function(err, data) {
                 if (err) { resp.json({ message : 'Unable to find prices' }); } 
                 else { resp.json(data); }
             });
