@@ -12,14 +12,14 @@ module.exports = {
             var Comp = mongoose.model('companiesList', 
                                       new mongoose.Schema(
                                             {symbol: String, name: String}, 
-                                        ), 'companies');
+                                        {collection: 'companoes'}));
 
             app.route('/api/companies/')
                 .get(function(req, resp) {
                 Comp.findAll({}, function(err, data) { 
                     if (err) { resp.json({ message : 'Unable to find Companies' }); } 
                     else { resp.json(data); }
-                });
+                }).select("symbol name");
             });
         }
 }
