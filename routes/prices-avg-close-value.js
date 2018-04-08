@@ -15,13 +15,13 @@ module.exports = {
 
             app.route('/api/prices/:sym/avgclose')
                 .get(function(req, resp) {
-                Price.aggregate([
+                mongoose.prices.aggregate([
                     { $match: { name: req.params.sym }},
                     { $group: { 
                                 _id: '$name', 
                                 avg: {$avg: '$close'}
                               }}
-                    ]).exec();
+                    ]);
                 });
         }
 }
