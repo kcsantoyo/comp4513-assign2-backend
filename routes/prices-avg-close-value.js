@@ -14,7 +14,7 @@ module.exports = {
 
             app.route('/api/prices/:sym/close')
                 .get(function(req, resp) {
-                Comp.find({name: req.params.sym, avgClose: { $avg: "close" }}, function(err, data) { 
+                Comp.find({name: req.params.sym}, function(err, data) { 
                     if (err) { resp.json({ message : 'Unable to find Companies' }); } 
                     else { resp.json(data); }
                 });
