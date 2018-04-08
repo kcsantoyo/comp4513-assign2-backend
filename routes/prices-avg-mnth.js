@@ -22,9 +22,11 @@ module.exports = {
         var prce = mongoose.model('prices', priceSchema);
         app.route('/api/prices/:sym/:mnth')
             .get(function(req, resp){
-            prce.find({symbol : req.params.sym, date : new RegExp(/req.params.date/)}, function (err, data){
-                if (err) { resp.json({ message : 'Unable to find Companies' }); } 
+            prce.find().where('name')
+                .eq(req.params.sym)
+                .exec(function(err, data){
+                if(err) { resp.json({ message : "Prices not found"}); }
                 else { resp.json(data); }
-        });
-    }
+            });
+        }
 }
