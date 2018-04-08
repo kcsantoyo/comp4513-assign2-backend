@@ -16,7 +16,7 @@ module.exports = {
 
             app.route('/api/companies/')
                 .get(function(req, resp) {
-                Comp.findAll({}, function(err, data) { 
+                Comp.find({}, function(err, data) { 
                     if (err) { resp.json({ message : 'Unable to find Companies' }); } 
                     else { resp.json(data); }
                 }).select("symbol name");
