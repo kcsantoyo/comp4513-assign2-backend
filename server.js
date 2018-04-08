@@ -1,13 +1,23 @@
-const mongoose = require('mongoose');
-const express = require('express');
-const parser = require('body-parser');
+var http = require('http');
+var mongoose = require("mongoose");
+var express = require('express');
+var parser = require('body-parser');
 
-mongoose.connect('mongodb://admin:admin123456@ds239009.mlab.com:39009/heroku_h7v600xh');
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function callback() {
-    console.log("connected to mongo");
-});
+var uristring = 
+    process.env.MONGOLAB_URI ||
+    process.env.MONGOHQ_URL ||
+    process.env.MONGODB_URI ||
+    'mongodb://localhost/HelloMongoose';
+
+var theport = process.env.PORT || 5000;
+
+mongoose.connect(uristring, function (err, res) {
+      if (err) {
+      console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+      } else {
+      console.log ('Succeeded connected to: ' + uristring);
+      }
+    });
 
 var compSchema = new mongoose.Schema({
     id: Number,
@@ -20,7 +30,7 @@ var compSchema = new mongoose.Schema({
     frqncy: Number
 });
 
-var Comp = mongoose.model('Comp', compSchema);
+var Comp = mongoose.model('companies', compSchema);
 var app = express();
 app.set('port', (process.env.PORT || 5000));
 app.use(parser.json());
