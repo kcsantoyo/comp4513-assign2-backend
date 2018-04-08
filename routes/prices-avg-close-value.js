@@ -12,17 +12,16 @@ module.exports = {
             var Price = mongoose.model('avgClosePrice', 
                                       new mongoose.Schema({
                 name: String}, {collection: 'prices'}));
-            var average = function(req, resp) {
+
+            app.route('/api/prices/:sym/avgclose')
+                .get(function(req, resp) {
                 Price.aggregate([
                     { $match: { name: req.params.sym }},
                     { $group: { 
                                 _id: 'name', 
                                 avg: {$avg: 'close'}
                               }}
-                    ]);
-                }
-
-            app.route('/api/prices/:sym/avgclose')
-                .get(average);
+                    ]).exec();
+                });
         }
 }
