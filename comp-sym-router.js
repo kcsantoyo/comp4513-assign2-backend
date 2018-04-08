@@ -1,14 +1,8 @@
 var path = require('path');
 module.exports = {
     
-    defineRouting: function(app, mongoose)
+    defineRouting: function(app, mongoose, uristring)
     {
-        var uristring = 
-        process.env.MONGOLAB_URI ||
-        process.env.MONGOHQ_URL ||
-        process.env.MONGODB_URI ||
-        'mongodb://localhost/HelloMongoose';
-        
         mongoose.connect(uristring, function (err, res) {
       if (err) {
       console.log ('ERROR connecting to: ' + uristring + '. ' + err);
