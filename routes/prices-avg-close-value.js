@@ -8,20 +8,18 @@ module.exports = {
                 else { console.log ('Succeeded connected to: ' + uristring); }
             });
 
-            var schema = new mongoose.Schema({symbol: String, name: String});
-            var Price = mongoose.model('avgClosePrice', 
-                                      new mongoose.Schema({
-                name: String}, {collection: 'prices'}));
+            var schema = new mongoose.Schema({collection: 'prices'});
+            var Price = mongoose.model('avgClosePrice', schema));
 
             app.route('/api/prices/:sym/avgclose')
                 .get(function(req, resp) {
                 Price.aggregate([
-                    { $match: { name: req.params.sym }},
-                    { $group: { 
-                                _id: '$name', 
-                                avg: {$avg: '$close'}
-                              }}
-                    ]);
+                    { $match: { name: "AAPL" }},
+                    { $group: { _id: '$name', avg: {$avg: '$close'}}}], function(err) {
+                    
+                }
+                    
+                );
                 });
         }
 }
