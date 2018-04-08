@@ -8,22 +8,22 @@ module.exports = {
             else { console.log ('Succeeded connected to: ' + uristring); }
         });
         
-        var compSchema = new mongoose.Schema({
-            id: Number,
-            symbol: String,
-            name: String,
-            sector: String,
-            subind: String,
-            addr: String,
-            dteAdd: String,
-            frqncy: Number
-        });
+        //var compSchema = new mongoose.Schema({
+            //id: Number,
+            //symbol: String,
+            //name: String,
+            //sector: String,
+            //subind: String,
+            //addr: String,
+            //dteAdd: String,
+          //  frqncy: Number
+        //});
         
-        var Comp = mongoose.model('companies', compSchema);
+        var Comp = mongoose.model('companies');
         
         app.route('/api/companies/:sym')
             .get(function(req, resp) {
-            Comp.find({symbol : req.params.sym}, function(err, data) { 
+            Comp.find(function(err, data) { 
                 if (err) { resp.json({ message : 'Unable to find Companies' }); } 
                 else { resp.json(data); }
             });

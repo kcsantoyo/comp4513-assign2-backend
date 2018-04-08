@@ -4,7 +4,8 @@ var mongoose = require("mongoose");
 var express = require('express');
 var parser = require('body-parser');
 
-var compSymRouter = require('./comp-sym-router.js');
+var companySingleRouter = require("./routes/company-single-router.js");
+var companyListRouter = require("./routes/company-list-router.js");
 
 var uristring = 
     process.env.MONGOLAB_URI ||
@@ -22,7 +23,8 @@ app.get('/', function (req, res) {
   res.send('Hello World!')
 });
 
-compSymRouter.defineRouting(app, mongoose, uristring);
+companySingleRouter.defineRouting(app, mongoose, uristring);
+companyListRouter.defineRouting(app, mongoose, uristring);
 
 app.listen(app.get('port'), function(){
     console.log('Node app is running on port', app.get('port'));
