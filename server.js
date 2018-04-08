@@ -1,6 +1,6 @@
-var mongoose = require('./node_modules/mongoose');
-var express = require('./node_modules/express');
-var parser = require('./node_modules/body-parser');
+var mongoose = require('mongoose');
+var express = require('express');
+var parser = require('body-parser');
 
 mongoose.connect('mongodb://admin:admin123456@ds239009.mlab.com:39009/heroku_h7v600xh');
 var db = mongoose.connection;
