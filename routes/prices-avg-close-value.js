@@ -8,7 +8,7 @@ module.exports = {
                 else { console.log ('Succeeded connected to: ' + uristring); }
             });
 
-            var schema = new mongoose.Schema({collection: 'prices'});
+            var schema = new mongoose.Schema({date: Date, open: Number, high: Number, low: Number, close: Number, volume: Number, Name: String},{collection: 'prices'});
             var Price = mongoose.model('avgClosePrice', schema));
 
             app.route('/api/prices/:sym/avgclose')
