@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose = require('./mongoose');
 var express = require('express');
 var parser = require('body-parser');
 
