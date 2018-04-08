@@ -1,7 +1,10 @@
 var http = require('http');
+var path = require('path');
 var mongoose = require("mongoose");
 var express = require('express');
 var parser = require('body-parser');
+
+var compSymRouter = require('./comp-sym-router.js');
 
 var uristring = 
     process.env.MONGOLAB_URI ||
@@ -40,13 +43,7 @@ app.get('/', function (req, res) {
   res.send('Hello World!')
 });
 
-app.route('/api/companies/:sym')
-    .get(function(req, resp) {
-    Comp.find({symbol : req.params.sym}, function(err, data) {
-        if (err) { resp.json({ message : 'Unable to find Companies' }); }
-        else { resp.json(data); }
-    });
-});
+compSymRouter.defineRouting(app, Comp);
 
 app.listen(app.get('port'), function(){
     console.log('Node app is running on port', app.get('port'));
