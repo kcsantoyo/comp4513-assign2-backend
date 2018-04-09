@@ -20,13 +20,16 @@ module.exports = {
                 name: Number,
             })
             
-            var Price = mongoose.model('monthlycloseprices', schema);
+            var Price = mongoose.model('avgcloselist', schema);
             
             var getAvgClosePrice = function(symbol, monthString, resp){
                 
-                    Price.find({ name: 'AMZN', date: new RegExp('-'+monthString+'-')}, function(err, data) {
-                if (err) { resp.json({ message : 'Unable to find prices' }); } 
-                else { return data }});
+                    Price.aggregate([
+                    {$match: { name: 'AMZN', date:{ $regex: '-'+monthString+'-'} }},
+                    {$group: { _id: "$name", avg: { $avg: '$close'}}}
+                    ]).exec(function (err, result) {
+                    if (err) {throw err;} 
+                    else { resp.json(result); }});
                 
                 
             }
@@ -40,7 +43,6 @@ module.exports = {
                                 if (i < 10) {monthString = '0'+ i}
                                 obj.push(getAvgClosePrice(req.param.sym, monthString, resp));
                             }
-                            resp.json(obj);
             });
         }
 }
