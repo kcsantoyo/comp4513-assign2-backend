@@ -8,13 +8,13 @@ module.exports = {
                 else { console.log ('Succeeded connected to: ' + uristring); }
             });
 
-            var schema = new mongoose.Schema({date: Date, open: Number, high: Number, low: Number, close: Number, volume: Number, Name: String},{collection: 'prices'});
+            var schema = new mongoose.Schema({date: Date, open: Number, high: Number, low: Number, close: Number, volume: Number, Name: String}, {collection: 'prices'});
             var Price = mongoose.model('avgClosePrice', schema);
 
-            app.route('/api/prices/:sym/avgclose')
+            app.route('/api/prices/avgclose/:sym')
                 .get(function(req, resp) {
                 Price.aggregate([
-                    { $match: { name: "AAPL" }},
+                    { $match: { name: req.params.sym }},
                     { $group: { _id: '$name', avg: {$avg: '$close'}}}
                 ]);
                 });
