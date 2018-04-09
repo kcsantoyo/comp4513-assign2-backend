@@ -10,7 +10,7 @@ module.exports = {
                 else { console.log ('Succeeded connected to: ' + uristring); }
             });
             
-            var Price = new Schema ({
+            var Price = new mongoose.Schema ({
                 date: String,
                 open: Number,
                 high: Number,
