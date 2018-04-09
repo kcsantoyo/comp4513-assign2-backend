@@ -19,7 +19,7 @@ module.exports = {
                 else { 
                         var priceData = _.map(data);
                         for(instance in priceData){
-                            instance.date = _.map(instance.date.split("-"));                        }
+                            instance.date = instance.date.split("-");                        }
 
                     resp.json(priceData); 
                      
