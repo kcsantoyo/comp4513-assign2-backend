@@ -17,6 +17,9 @@ module.exports = {
                     { $match: { name: req.params.sym }},
                     { $group: { _id: '$name', avg: {$avg: '$close'}}}
                 ]);
-                });
+                },
+                     function(err, data) {
+                if (err) { resp.json({ message : 'Unable to find prices' }); } 
+                else { resp.json(data); }});
         }
 }
