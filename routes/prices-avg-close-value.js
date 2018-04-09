@@ -28,7 +28,7 @@ module.exports = {
                     {$match: { name: 'AMZN', date:{ $regex: '-01-'} }}
                     ]).exec(function (err, result) {
                     if (err) {throw err;} 
-                    else { console.log(result); }});
+                    console.log(result);});
                 
                 
             }
