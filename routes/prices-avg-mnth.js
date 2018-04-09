@@ -23,7 +23,7 @@ module.exports = {
         
         app.route('/api/prices/:sym/:mnth')
             .get(function(req, resp){
-            prce.find({name : req.params.sym, date : new RegExp('/'+req.params.mnth+'/')}, function(err, data) {
+            prce.find({name : req.params.sym, date : new RegExp(req.params.mnth)}, function(err, data) {
                 if (err) { resp.json({ message : 'Unable to find prices' }); } 
                 else { resp.json(data); }
             });
