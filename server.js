@@ -4,11 +4,10 @@ var mongoose = require("mongoose");
 var express = require('express');
 var parser = require('body-parser');
 
-
 var company = require('./routes/company-router.js');
 var user = require('./routes/user-router.js');
 var price = require('./routes/price-router.js');
-var portfolio = require('./routes/portfolio-router.js')
+var portfolio = require('./routes/portfolio-router.js');
 
 var uristring = 
     process.env.MONGOLAB_URI ||
@@ -26,6 +25,10 @@ app.get('/', function (req, res) {
   res.send('Hello World!')
 });
 
+company.defineRouting(app, mongoose, uristring);
+user.defineRouting(app, mongoose, uristring);
+price.defineRouting(app, mongoose, uristring);
+portfolio.defineRouting(app, mongoose, uristring);
 
 
 app.listen(app.get('port'), function(){
