@@ -1,5 +1,8 @@
+require('JSONArray');
+
 var path = require('path');
-var _ = require('lodash')
+var _ = require('lodash');
+var MongoClient = require('mongodb').MongoClient;
 
 module.exports = { 
     defineRouting: function(app, mongoose, uristring)
@@ -8,23 +11,34 @@ module.exports = {
                 if (err) { console.log ('ERROR connecting to: ' + uristring + '. ' + err); } 
                 else { console.log ('Succeeded connected to: ' + uristring); }
             });
-
-            var schema = new mongoose.Schema({date: String, open: Number, high: Number, low: Number, close: Number, volume: Number, Name: String}, {collection: 'prices'});
-            var Price = mongoose.model('avgClosePrice', schema);
-
-            app.route('/api/prices/avgclose/:sym')
-                .get(function(req, resp) {
-                Price.find({ name: req.params.sym}, function(err, data) {
-                if (err) { resp.json({ message : 'Unable to find prices' }); } 
-                else { 
-                        var priceData = JSON.parse(_.map(data));
-                        for(var price in priceData){
-                            price.date = price.date.split("-");                        }
-
-                    resp.json(priceData); 
-                     
-                     }})  
+            
+            var Price = new Schema ({
+                date: String,
+                open: Number,
+                high: Number,
+                low: Number,
+                close: Number,
+                volume: Number,
+                name: Number,
+            })
+            
+            var getAvgClosePrice = function(symbol, monthString){
+                Price.aggregate([
+                    {$match: { name: 'AMZN', date:{$regex: '-'+monthString+'-'} }},
+                    {$group: { _id: null, avg: { $avg: '$close'}}}
+                ])
             }
-                );
+            
+            
+            app.route('/api/prices/avgclose/:sym/')
+                .get(function(req, resp) {
+                            var obj = [];
+                            for(var i = 1; i < 13; i++){
+                                var monthString = i;
+                                if (i < 10) {monthString = '0'+ i}
+                                obj.push(getAvgClosePrice(req.param.sym, monthString))
+                            }
+                            resp.json(obj);
+                        });
         }
 }
