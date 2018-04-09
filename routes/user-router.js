@@ -24,7 +24,7 @@ module.exports = {
         app.route('/api/users')
             .get(function(req, resp){
             User.find({}, function(err, data) {
-                if (err) { resp.json({ message : 'Unable to find prices' }); } 
+                if (err) { resp.json({ message : 'Unable to find users' }); } 
                 else { resp.json(data); }
             });
         });
