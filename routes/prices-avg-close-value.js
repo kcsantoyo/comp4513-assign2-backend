@@ -20,7 +20,7 @@ module.exports = {
                 name: Number,
             })
             
-            var Price = mongoose.model('prices', schema);
+            var Price = mongoose.model('monthlycloseprices', schema);
             
             var getAvgClosePrice = function(symbol, monthString){
                 
