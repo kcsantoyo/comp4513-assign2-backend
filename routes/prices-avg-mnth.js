@@ -1,4 +1,5 @@
 var path = require('path');
+var _ = require('lodash')
 module.exports = {
     
     defineRouting: function(app, mongoose, uristring) 
@@ -19,21 +20,40 @@ module.exports = {
             name: String
         });
         
-        var prce = mongoose.model('prices', priceSchema);
+        var priceClose = new mongoose.Schema({
+            name: String,
+            close: Number
+        })
+        
+        var Price = mongoose.model('prices', priceSchema);
+        var Close = mongoose.model('close', priceClose);
         
         app.route('/api/prices/:sym/:mnth')
             .get(function(req, resp){
-            prce.find({name : req.params.sym, date : new RegExp(req.params.mnth)}, function(err, data) {
+            Price.find({name : req.params.sym, date : new RegExp(req.params.mnth)}, function(err, data) {
                 if (err) { resp.json({ message : 'Unable to find prices' }); } 
                 else { resp.json(data); }
             });
         });
         
-        app.route('/api/prices/')
-            .get(function(req, resp){
-            prce.find({}, function(err, data) {
+        app.route('/api/prices/:sym/:date')
+            .get(function(req, resp) {
+            Price.find({name: req.params.sym, date: req.params.date},
+                      function(err, data){
                 if (err) { resp.json({ message : 'Unable to find prices' }); } 
                 else { resp.json(data); }
+            })
+        });
+        
+        app.route('/api/prices/avgclose/:sym')
+            .get(function(req, resp){
+            Close.find({name: req.params.sym}, function(err, data) {
+                if (err) { resp.json({ message : 'Unable to find prices' }); } 
+                else { 
+                    var pricesArray = _.map(data);
+                    
+                    resp.json(pricesArray);
+                }
             });
         });
     }

@@ -26,6 +26,7 @@ module.exports = {
         });
         
         var Comp = mongoose.model('companies', compSchema);
+        var List = mongoose.model('companies-list', listSchema);
         
         app.route('/api/companies/:sym')
             .get(function(req, resp) {
@@ -37,7 +38,7 @@ module.exports = {
         
         app.route('/api/companies/')
                 .get(function(req, resp) {
-                Comp.find({}, function(err, data) { 
+                List.find({}, function(err, data) { 
                     if (err) { resp.json({ message : 'Unable to find Companies' }); } 
                     else { resp.json(data); }
                 }).select("symbol name");
