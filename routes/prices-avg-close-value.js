@@ -29,7 +29,7 @@ module.exports = {
                     {$group: { _id: "$name", avg: { $avg: '$close'}}}
                     ], function (err, result) {
                     if (err) {next(err);} 
-                    else { query = result);}));
+                    else { query = result;});
                 return query;
             }
             
