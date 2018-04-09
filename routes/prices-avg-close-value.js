@@ -10,7 +10,7 @@ module.exports = {
                 else { console.log ('Succeeded connected to: ' + uristring); }
             });
             
-            var Price = new mongoose.Schema ({
+            var schema = new mongoose.Schema ({
                 date: String,
                 open: Number,
                 high: Number,
@@ -19,6 +19,8 @@ module.exports = {
                 volume: Number,
                 name: Number,
             })
+            
+            var Price = mongoose.model('avgcloselist', schema);
             
             var getAvgClosePrice = function(symbol, monthString){
                 Price.aggregate([
