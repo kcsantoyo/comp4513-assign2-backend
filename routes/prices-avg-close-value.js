@@ -23,23 +23,24 @@ module.exports = {
             var Price = mongoose.model('avgcloselist', schema);
             
             var getAvgClosePrice = function(symbol, monthString){
-                return Price.aggregate([
+                var result = Price.aggregate([
                     {$match: { name: symbol, date:{$regex: '-'+monthString+'-'} }},
                     {$group: { _id: "$name", avg: { $avg: '$close'}}}
-                ])
+                ]);
+                
+                return result;
             }
             
             
             app.route('/api/prices/avgclose/:sym/')
                 .get(function(req, resp) {
-                    Price.find({}, function(err, data) {
                             var obj = [];
                             for(var i = 1; i < 13; i++){
                                 var monthString = i;
                                 if (i < 10) {monthString = '0'+ i}
                                 obj.push(getAvgClosePrice(req.param.sym, monthString))
                             }
-                            resp.json(obj)}
-                        });
+                            resp.json(obj);
+            });
         }
 }
