@@ -26,7 +26,7 @@ module.exports = {
                 
                     Price.aggregate([
                     {$match: { name: 'AMZN', date:{ $regex: '-01-'} }}
-                    ], function (err, result) {
+                    ]).exec(function (err, result) {
                     if (err) {throw err;} 
                     else { console.log(result); }});
                 
