@@ -16,7 +16,14 @@ module.exports = {
                 .get(function(req, resp) {
                 Price.find({ name: req.params.sym}, function(err, data) {
                 if (err) { resp.json({ message : 'Unable to find prices' }); } 
-                else { resp.json(_.map(data)) }})  
+                else { 
+                        var priceData = _.map(data);
+                        for(instance in priceData){
+                            instance.date = _.map(instance.date.split("-"));                        }
+
+                    resp.json(priceData); 
+                     
+                     }})  
             }
                 );
         }
