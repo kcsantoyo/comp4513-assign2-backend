@@ -24,21 +24,22 @@ module.exports = {
             
             var getAvgClosePrice = function(symbol, monthString){
                 return Price.aggregate([
-                    {$match: { name: 'AMZN', date:{$regex: '-'+monthString+'-'} }},
-                    {$group: { _id: null, avg: { $avg: '$close'}}}
+                    {$match: { name: symbol, date:{$regex: '-'+monthString+'-'} }},
+                    {$group: { _id: "$name", avg: { $avg: '$close'}}}
                 ])
             }
             
             
             app.route('/api/prices/avgclose/:sym/')
                 .get(function(req, resp) {
+                    Price.find({}, function(err, data) {
                             var obj = [];
                             for(var i = 1; i < 13; i++){
                                 var monthString = i;
                                 if (i < 10) {monthString = '0'+ i}
                                 obj.push(getAvgClosePrice(req.param.sym, monthString))
                             }
-                            resp.json(obj);
+                            resp.json(obj)}
                         });
         }
 }
