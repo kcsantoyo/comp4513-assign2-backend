@@ -1,4 +1,5 @@
 var path = require('path');
+var _ = require('lodash')
 
 module.exports = { 
     defineRouting: function(app, mongoose, uristring)
@@ -13,9 +14,10 @@ module.exports = {
 
             app.route('/api/prices/avgclose/:sym')
                 .get(function(req, resp) {
-                Price.aggregate([{ $group: { _id: '$name', avg: {$avg: '$close'}}}]);},
-                function(err, data) {
+                Price.find({ name: req.params.sym}, function(err, data) {
                 if (err) { resp.json({ message : 'Unable to find prices' }); } 
-                else { resp.json(data); }});
+                else { resp.json(_.meanBy(data, 'close')); }}) 
+            }
+                );
         }
 }
