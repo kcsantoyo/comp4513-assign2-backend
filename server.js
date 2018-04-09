@@ -7,12 +7,9 @@ var parser = require('body-parser');
 
 var companySingleRouter = require('./routes/company-single-router.js');
 var companyListRouter = require('./routes/company-list-router.js');
-<<<<<<< f254a4519e380ec505ae722eae61e0f454944f26
 var pricesAvgCloseValue = require('./routes/prices-avg-close-value.js')
-
-=======
 var priceAvgMnth = require('./routes/prices-avg-mnth.js');
->>>>>>> regex test 14
+
 var uristring = 
     process.env.MONGOLAB_URI ||
     process.env.MONGOHQ_URL ||
@@ -31,11 +28,8 @@ app.get('/', function (req, res) {
 
 companySingleRouter.defineRouting(app, mongoose, uristring);
 companyListRouter.defineRouting(app, mongoose, uristring);
-<<<<<<< f254a4519e380ec505ae722eae61e0f454944f26
 pricesAvgCloseValue.defineRouting(app, mongoose, uristring);
-=======
 priceAvgMnth.defineRouting(app, mongoose, uristring); 
->>>>>>> regex test 14
 
 app.listen(app.get('port'), function(){
     console.log('Node app is running on port', app.get('port'));
