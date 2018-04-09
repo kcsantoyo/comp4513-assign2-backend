@@ -22,16 +22,11 @@ module.exports = {
             
             var Price = mongoose.model('avgcloselist', schema);
             
-            var getAvgClosePrice = function(symbol, monthString, resp){
-                
-                    
-                
-                
-            }
-            
             
             app.route('/api/prices/avgclose/:sym/:month')
                 .get(function(req, resp) {
+                var monthString = req.params.month
+                if (req.params.month < 10) {monthString = '0' + req.params.month}
                 Price.aggregate([
                     {$match: { name: 'AMZN', date:{ $regex: '-'+monthString+'-'} }},{$group: { _id: "$name", avg: { $avg: '$close'}}}
                     ]), function (err, result) {
