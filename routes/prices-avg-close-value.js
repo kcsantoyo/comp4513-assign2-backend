@@ -4,7 +4,7 @@ var _ = require('lodash')
 module.exports = { 
     defineRouting: function(app, mongoose, uristring)
         {
-            mongoose.connect(uristring, function (err, res) {
+            mongoose.connect(uristring + "test?maxPoolSize=2&socketTimeoutMS=60000", function (err, res) {
                 if (err) { console.log ('ERROR connecting to: ' + uristring + '. ' + err); } 
                 else { console.log ('Succeeded connected to: ' + uristring); }
             });
