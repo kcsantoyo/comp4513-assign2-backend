@@ -32,9 +32,11 @@ module.exports = {
             
             app.route('/api/prices/avgclose/:sym/:month')
                 .get(function(req, resp) {
-                Price.aggregate([{$match: { name: 'AMZN', date:{ $regex: '-'+monthString+'-'} }},{$group: { _id: "$name", avg: { $avg: '$close'}}}]), function (err, result) {
-                    if (err) {throw err;} 
-                    else { resp.json(result);});      
+                Price.aggregate([
+                    {$match: { name: 'AMZN', date:{ $regex: '-'+monthString+'-'} }},{$group: { _id: "$name", avg: { $avg: '$close'}}}
+                    ]), function (err, result) {
+                    if (err) {throw err} 
+                    else { resp.json(result) }}   
             });
         }
 }
