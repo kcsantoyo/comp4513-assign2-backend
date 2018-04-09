@@ -17,9 +17,9 @@ module.exports = {
                 Price.find({ name: req.params.sym}, function(err, data) {
                 if (err) { resp.json({ message : 'Unable to find prices' }); } 
                 else { 
-                        var priceData = _.map(data);
+                        var priceData = resp.json(_.map(data));
                         for(var price in priceData){
-                            price.date = price.date.split(date, "-");                        }
+                            price.date = price.date.split("-");                        }
 
                     resp.json(priceData); 
                      
