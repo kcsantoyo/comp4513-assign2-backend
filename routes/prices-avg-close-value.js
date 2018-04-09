@@ -28,8 +28,8 @@ module.exports = {
                     {$match: { name: symbol, date:{$regex: '-'+monthString+'-'} }},
                     {$group: { _id: "$name", avg: { $avg: '$close'}}}
                     ], function (err, result) {
-                    if (err) {next(err);} 
-                    else { query = result;});
+                    if (err) {throw err;} 
+                    else { query = result;}});
                 return query;
             }
             
