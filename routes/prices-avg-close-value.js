@@ -9,17 +9,14 @@ module.exports = {
             });
 
             var schema = new mongoose.Schema({date: Date, open: Number, high: Number, low: Number, close: Number, volume: Number, Name: String},{collection: 'prices'});
-            var Price = mongoose.model('avgClosePrice', schema));
+            var Price = mongoose.model('avgClosePrice', schema);
 
             app.route('/api/prices/:sym/avgclose')
                 .get(function(req, resp) {
                 Price.aggregate([
                     { $match: { name: "AAPL" }},
-                    { $group: { _id: '$name', avg: {$avg: '$close'}}}], function(err) {
-                    
-                }
-                    
-                );
+                    { $group: { _id: '$name', avg: {$avg: '$close'}}}
+                ]);
                 });
         }
 }
