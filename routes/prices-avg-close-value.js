@@ -16,8 +16,10 @@ module.exports = {
                 .get(function(req, resp) {
                 Price.find({ name: req.params.sym}, function(err, data) {
                 if (err) { resp.json({ message : 'Unable to find prices' }); } 
-                else { resp.json(_.groupBy(function(d) { return d.datetime.split('-').slice(0, 2).join('-'); }).meanBy(data, 'close')); }})  
+                else { resp.json(_.meanBy(data, 'close')); }}).group({ $split: ["$date", '-']}[1])  
             }
                 );
         }
 }
+
+//function(d) { return d.datetime.split('-').slice(0, 2).join('-'); }
