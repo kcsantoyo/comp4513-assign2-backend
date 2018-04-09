@@ -18,8 +18,8 @@ module.exports = {
                 if (err) { resp.json({ message : 'Unable to find prices' }); } 
                 else { 
                         var priceData = _.map(data);
-                        for(instance in priceData){
-                            instance.date = instance.date.split("-");                        }
+                        for(var price in priceData){
+                            price.date = instance.date.split(date, "-");                        }
 
                     resp.json(priceData); 
                      
