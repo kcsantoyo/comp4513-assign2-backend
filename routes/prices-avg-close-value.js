@@ -13,12 +13,8 @@ module.exports = {
 
             app.route('/api/prices/avgclose/:sym')
                 .get(function(req, resp) {
-                Price.aggregate([
-                    { $match: { name: req.params.sym }},
-                    { $group: { _id: '$name', avg: {$avg: '$close'}}}
-                ]);
-                },
-                     function(err, data) {
+                Price.aggregate([{ $group: { _id: '$name', avg: {$avg: '$close'}}}]);},
+                function(err, data) {
                 if (err) { resp.json({ message : 'Unable to find prices' }); } 
                 else { resp.json(data); }});
         }
