@@ -1,5 +1,3 @@
-require('JSONArray');
-
 var path = require('path');
 var _ = require('lodash');
 var MongoClient = require('mongodb').MongoClient;
