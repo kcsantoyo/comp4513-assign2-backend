@@ -9,7 +9,7 @@ module.exports = {
         });
         
         var priceSchema = new mongoose.Schema({
-           id: Number,
+            id: Number,
             date: String,
             open: Number,
             high: Number,
@@ -20,6 +20,7 @@ module.exports = {
         });
         
         var prce = mongoose.model('prices', priceSchema);
+        
         app.route('/api/prices/:sym')
             .get(function(req, resp){
             prce.find({name : req.params.sym}, function(err, data) {
