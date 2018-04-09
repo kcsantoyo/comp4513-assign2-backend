@@ -7,7 +7,7 @@ var parser = require('body-parser');
 
 var companySingleRouter = require('./routes/company-single-router.js');
 var companyListRouter = require('./routes/company-list-router.js');
-var pricesAvgCloseValue = require('./routes/prices-avg-month.js')
+var pricesAvgCloseValue = require('./routes/prices-avg-close-value.js')
 
 var uristring = 
     process.env.MONGOLAB_URI ||
