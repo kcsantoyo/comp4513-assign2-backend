@@ -7,6 +7,7 @@ var parser = require('body-parser');
 
 var companySingleRouter = require('./routes/company-single-router.js');
 var companyListRouter = require('./routes/company-list-router.js');
+var pricesAvgCloseValue = require('./routes/prices-avg-month.js')
 
 var uristring = 
     process.env.MONGOLAB_URI ||
@@ -26,6 +27,7 @@ app.get('/', function (req, res) {
 
 companySingleRouter.defineRouting(app, mongoose, uristring);
 companyListRouter.defineRouting(app, mongoose, uristring);
+pricesAvgCloseValue.defineRouting(app, mongoose, uristring);
 
 app.listen(app.get('port'), function(){
     console.log('Node app is running on port', app.get('port'));
