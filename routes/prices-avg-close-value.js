@@ -22,11 +22,11 @@ module.exports = {
             
             var Price = mongoose.model('monthlycloseprices', schema);
             
-            var getAvgClosePrice = function(symbol, monthString. resp){
+            var getAvgClosePrice = function(symbol, monthString, resp){
                 
                     Price.find({ name: 'AMZN', date: new RegExp('-'+monthString+'-')}, function(err, data) {
                 if (err) { resp.json({ message : 'Unable to find prices' }); } 
-                else { return data });
+                else { return data }});
                 
                 
             }
