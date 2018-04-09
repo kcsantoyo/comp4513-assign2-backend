@@ -4,7 +4,7 @@ var _ = require('lodash')
 module.exports = { 
     defineRouting: function(app, mongoose, uristring)
         {
-            mongoose.connect(uristring + "test?maxPoolSize=2&socketTimeoutMS=60000", function (err, res) {
+            mongoose.connect(uristring, function (err, res) {
                 if (err) { console.log ('ERROR connecting to: ' + uristring + '. ' + err); } 
                 else { console.log ('Succeeded connected to: ' + uristring); }
             });
@@ -14,13 +14,10 @@ module.exports = {
 
             app.route('/api/prices/avgclose/:sym')
                 .get(function(req, resp) {
-                Price.aggregate([
-                    { $match: { name: req.params.sym} }
-                ])
-            });
+                Price.find({ name: req.params.sym}, function(err, data) {
+                if (err) { resp.json({ message : 'Unable to find prices' }); } 
+                else { resp.json(_.groupBy(function(d) { return d.datetime.split('-').slice(0, 2).join('-'); }).meanBy(data, 'close')); }})  
+            }
+                );
         }
 }
-
-//{ name: req.params.sym}, function(err, data) {
-    //            if (err) { resp.json({ message : 'Unable to find prices' }); } 
-       //         else { resp.json(_.meanBy(data, 'close')); }}).group('date').  
