@@ -19,6 +19,12 @@ module.exports = {
             frqncy: Number
         });
         
+        var listSchema = new mongoose.Schema({
+            id: Number,
+            symbol: String,
+            name: String,
+        });
+        
         var Comp = mongoose.model('companies', compSchema);
         
         app.route('/api/companies/:sym')
@@ -27,6 +33,14 @@ module.exports = {
                 if (err) { resp.json({ message : 'Unable to find Companies' }); } 
                 else { resp.json(data); }
             });
+        });
+        
+        app.route('/api/companies/')
+                .get(function(req, resp) {
+                Comp.find({}, function(err, data) { 
+                    if (err) { resp.json({ message : 'Unable to find Companies' }); } 
+                    else { resp.json(data); }
+                }).select("symbol name");
         });
     }
 }

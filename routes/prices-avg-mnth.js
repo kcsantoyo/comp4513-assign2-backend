@@ -28,5 +28,13 @@ module.exports = {
                 else { resp.json(data); }
             });
         });
+        
+        app.route('/api/prices/')
+            .get(function(req, resp){
+            prce.find({}, function(err, data) {
+                if (err) { resp.json({ message : 'Unable to find prices' }); } 
+                else { resp.json(data); }
+            });
+        });
     }
 }
