@@ -5,10 +5,10 @@ var express = require('express');
 var parser = require('body-parser');
 
 
-var companySingleRouter = require('./routes/company-single-router.js');
-var companyListRouter = require('./routes/company-list-router.js');
-var pricesAvgCloseValue = require('./routes/prices-avg-close-value.js')
-var priceAvgMnth = require('./routes/prices-avg-mnth.js');
+var company = require('./routes/company-router.js');
+var user = require('./routes/user-router.js');
+var price = require('./routes/price-router.js');
+var portfolio = require('./routes/portfolio-router.js')
 
 var uristring = 
     process.env.MONGOLAB_URI ||
@@ -26,10 +26,7 @@ app.get('/', function (req, res) {
   res.send('Hello World!')
 });
 
-companySingleRouter.defineRouting(app, mongoose, uristring);
-companyListRouter.defineRouting(app, mongoose, uristring);
-pricesAvgCloseValue.defineRouting(app, mongoose, uristring);
-priceAvgMnth.defineRouting(app, mongoose, uristring); 
+
 
 app.listen(app.get('port'), function(){
     console.log('Node app is running on port', app.get('port'));
