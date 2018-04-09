@@ -24,7 +24,7 @@ module.exports = {
             
             var getAvgClosePrice = function(symbol, monthString){
                 
-                    return Price.find({ name: 'AMZN', date: new RegExp('-'+monthString+'-')});
+                    console.log(Price.find({ name: 'AMZN', date: new RegExp('-'+monthString+'-')}));
                 
                 
             }
@@ -36,7 +36,7 @@ module.exports = {
                             for(var i = 1; i < 13; i++){
                                 var monthString = i;
                                 if (i < 10) {monthString = '0'+ i}
-                                obj.push(getAvgClosePrice(req.param.sym, monthString));
+                                getAvgClosePrice(req.param.sym, monthString);
                             }
                             resp.json(obj);
             });
