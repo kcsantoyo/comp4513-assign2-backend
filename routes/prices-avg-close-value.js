@@ -22,25 +22,27 @@ module.exports = {
             
             var Price = mongoose.model('avgcloselist', schema);
             
-            var getAvgClosePrice = function(symbol, monthString, resp){
+            var getAvgClosePrice = function(symbol, monthString){
                 
-                    return Price.aggregate([
+                    Price.aggregate([
                     {$match: { name: symbol, date:{$regex: '-'+monthString+'-'} }},
                     {$group: { _id: "$name", avg: { $avg: '$close'}}}
                     ], function (err, result) {
                     if (err) {throw err;} 
-                    else { resp.json(result);}});
+                    else { return result;}});
                 
             }
             
             
             app.route('/api/prices/avgclose/:sym/')
                 .get(function(req, resp) {
+                            var obj = []
                             for(var i = 1; i < 13; i++){
                                 var monthString = i;
                                 if (i < 10) {monthString = '0'+ i}
-                                getAvgClosePrice(req.param.sym, monthString, resp);
+                                obj.push(getAvgClosePrice(req.param.sym, monthString));
                             }
+                            resp.json(obj);
             });
         }
 }
