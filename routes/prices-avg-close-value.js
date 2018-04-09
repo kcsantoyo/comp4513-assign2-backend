@@ -24,12 +24,12 @@ module.exports = {
             
             var getAvgClosePrice = function(symbol, monthString){
                 
-                    Price.aggregate([
+                    console.log(Price.aggregate([
                     {$match: { name: 'AMZN', date:{ $regex: '-'+monthString+'-'} }},
                     {$group: { _id: "$name", avg: { $avg: '$close'}}}
                     ]).exec(function (err, result) {
                     if (err) {throw err;} 
-                    else { console.log(result); }});
+                    }))
                 
                 
             }
