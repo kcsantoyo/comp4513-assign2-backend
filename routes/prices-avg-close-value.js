@@ -24,7 +24,7 @@ module.exports = {
             
             var getAvgClosePrice = function(symbol, monthString){
                 
-                    return Price.find({ name: 'AMZN', date: { $regex: '-'+monthString+'-'}});
+                    return Price.find({ name: 'AMZN', date: new RegExp('-'+monthString+'-')});
                 
                 
             }
