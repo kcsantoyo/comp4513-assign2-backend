@@ -12,8 +12,8 @@ module.exports = {
             id: Number,
             symbol: String,
             user: Number,
-            owned: Number
-            collection: "portfolio"
+            owned: Number,
+            {collection: "portfolio"}
         });
     
         var Portfolio = mongoose.model('portfolio', portSchema);
