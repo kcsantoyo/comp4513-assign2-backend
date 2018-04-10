@@ -52,11 +52,10 @@ module.exports = {
                 var obj = [];
                 for(var i = 1; i < 13; i++) {
                     var monthString = i;
-                    if(i < 10){monthString = '0'+i}
-                    var result = getMonthlyAverage(req.params.sym, monthString);
-                    obj.push(result)
+                    if(i < 10){monthString = '0' + 1}
+                    obj.push(getMonthlyAverage(req.params.sym, monthString))
                 }
-                resp.json(_.map(obj));
+                console.log(obj);
             });
     }
 }
