@@ -3,7 +3,7 @@ var path = require('path');
 var mongoose = require("mongoose");
 var express = require('express');
 var parser = require('body-parser');
-var process = require('process');
+var cors = require('cors');
 
 var company = require('./routes/company-router.js');
 var user = require('./routes/user-router.js');
@@ -21,6 +21,7 @@ var app = express();
 app.set('port', (process.env.PORT || 5000));
 app.use(parser.json());
 app.use(parser.urlencoded({extended: true}));
+app.use(cors());
 
 app.get('/', function (req, res) {
   res.send('Hello World!')
