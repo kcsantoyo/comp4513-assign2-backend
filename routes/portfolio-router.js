@@ -15,11 +15,11 @@ module.exports = {
             owned: Number
         });
     
-        var Portfolio = mongoose.model('portfolio', portSchema);
+        var Portfolio = mongoose.model('portfolios', portSchema);
         
-        app.route('/api/portfolios/:user')
+        app.route('/api/portfolios/')
             .get(function(req, resp) {
-            Portfolio.find({ id: req.params.user}, function(err, data) { 
+            Portfolio.find({}, function(err, data) { 
                 if (err) { resp.json({ message : 'Unable to find Portfolios' }); } 
                 else { resp.json(data); }
             });
