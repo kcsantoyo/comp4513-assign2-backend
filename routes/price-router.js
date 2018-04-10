@@ -42,7 +42,27 @@ module.exports = {
             .get(function(req, resp){
             Price.find({name: req.params.sym}, function(err, data) {
                 if (err) { resp.json({ message : 'Unable to find prices' }); } 
-                else { resp.json(data);}
+                else { 
+                    var dataArray = _.map(data)
+                    var newArray = [];
+                    for(var i = 0; i < 13; i++){
+                        var monthArray = [];
+                        var num = 0;
+                        var total = 0;
+                        var monthString = i;
+                        if ( i < 10){monthString = '0'+ i}
+                        for(var d in dataArray){
+                            
+                            if(d.date == new RegExp('-'+monthString+'-')) {
+                                total = total + d.close;
+                                num++;
+                            }
+                        }
+                        monthArray.push([{"month": monthString, "average": total/num}])
+                        newArray.push(monthArray);
+                    }
+                    resp.json(_.map(newArray))
+                    }
             });
         });
     }
