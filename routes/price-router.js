@@ -43,7 +43,7 @@ module.exports = {
                              {$group: {avg: {$avg: "$close"}}
                              }], function(err, data) {
                 if(err) {throw err}
-                else{return data;}
+                else{console.log(data);}
             });
         }
         
@@ -51,6 +51,7 @@ module.exports = {
             .get(function(req, resp){
                 var obj = [];
                 for(var i = 1; i < 13; i++) {
+                    
                     var monthString = i;
                     if(i < 10){monthString = '0' + 1}
                     obj.push(getMonthlyAverage(req.params.sym, monthString))
