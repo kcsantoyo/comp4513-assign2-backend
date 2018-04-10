@@ -50,9 +50,9 @@ module.exports = {
             Close.find({name: req.params.sym}, function(err, data) {
                 if (err) { resp.json({ message : 'Unable to find prices' }); } 
                 else { 
-                    var pricesArray = data;
                     
-                    resp.json(pricesArray);
+                    
+                    resp.json(_.map(data));
                 }
             });
         });
