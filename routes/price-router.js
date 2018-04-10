@@ -38,32 +38,25 @@ module.exports = {
             })
         });
         
+        var getMonthlyAverage = function(symbol, monthString) {
+            Price.aggregate([{$match: {symbol: symbol, date: {$regex: '-'+monthString+'-'}}},
+                             {$group: {avg: {$avg: "$close"}}
+                             }], function(err, data) {
+                if(err) {throw err}
+                else{return data;}
+            });
+        }
+        
         app.route('/api/prices/:sym/avgclose')
             .get(function(req, resp){
-            Price.find({name: req.params.sym}, function(err, data) {
-                if (err) { resp.json({ message : 'Unable to find prices' }); } 
-                else { 
-                    var dataArray = _.map(data)
-                    var newArray = [];
-                    for(var i = 0; i < 13; i++){
-                        var monthArray = [];
-                        var num = 0;
-                        var total = 0;
-                        var monthString = i;
-                        if ( i < 10){monthString = '0'+ i}
-                        for(var d in dataArray){
-                            
-                            if(d.date == new RegExp('-'+monthString+'-')) {
-                                total = total + d.close;
-                                num++;
-                            }
-                        }
-                        monthArray.push([{"month": monthString, "average": total/num}])
-                        newArray.push(monthArray);
-                    }
-                    resp.json(_.map(newArray))
-                    }
+                var obj = [];
+                for(var i = 1; i < 13; i++) {
+                    var monthString = i;
+                    if(i < 10){monthString = '0'+i}
+                    var result = getMonthlyAverage(req.params.sym, monthString);
+                    obj.push(result)
+                }
+                resp.json(_.map(obj));
             });
-        });
     }
 }
