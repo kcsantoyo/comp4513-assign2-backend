@@ -41,7 +41,7 @@ module.exports = {
                 List.find({}, function(err, data) { 
                     if (err) { resp.json({ message : 'Unable to find Companies' }); } 
                     else { resp.json(data); }
-                }).select("symbol name");
+                });
         });
     }
 }
