@@ -1,5 +1,6 @@
 var path = require('path');
 var bodyParser = require('body-parser');
+var md5 = require('../node_modules/crypto-md5/md5');
 
 module.exports = {
     
@@ -35,12 +36,12 @@ module.exports = {
             var user = req.body.email;
             var password = req.body.password;
             
-           // User.find({email: user}, function(err, data) {
-             //   if (md5(password + data.salt, 'hex') == data.password){
-              //      resp.send(true)
-           //     }
-             //   else { resp.send(false) }
-           // })
+            User.find({email: user}, function(err, data) {
+                if (md5(password + data.salt, 'hex') == data.password){
+                    resp.send(true)
+                }
+                else { resp.send(false) }
+            })
         })
     }
 }

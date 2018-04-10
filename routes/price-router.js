@@ -38,18 +38,17 @@ module.exports = {
         
         app.route('/api/prices/:sym/:date')
             .get(function(req, resp) {
-            Price.find({name: req.params.sym, date: req.params.date},
-                      function(err, data){
+            Price.find({name: req.params.sym, date: req.params.date}, function(err, data){
                 if (err) { resp.json({ message : 'Unable to find prices' }); } 
                 else { resp.json(data); }
             })
         });
         
-        app.route('/api/prices/avgclose/:sym')
+        app.route('/api/prices/close/:sym')
             .get(function(req, resp){
             Price.find({name: req.params.sym}, function(err, data) {
                 if (err) { resp.json({ message : 'Unable to find prices' }); } 
-                else { resp.json(_.map(data));}
+                else { resp.json(data);}
             });
         });
     }

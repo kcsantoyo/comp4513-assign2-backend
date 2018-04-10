@@ -3,6 +3,7 @@ var path = require('path');
 var mongoose = require("mongoose");
 var express = require('express');
 var parser = require('body-parser');
+var process = require('process');
 
 var company = require('./routes/company-router.js');
 var user = require('./routes/user-router.js');
