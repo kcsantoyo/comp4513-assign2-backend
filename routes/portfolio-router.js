@@ -11,12 +11,8 @@ module.exports = {
         var portSchema = new mongoose.Schema({
             id: Number,
             symbol: String,
-            name: String,
-            sector: String,
-            subind: String,
-            addr: String,
-            dteAdd: String,
-            frequency: Number
+            user: Number,
+            owned: Number
         });
     
         var Portfolio = mongoose.model('portfolios', portSchema);
