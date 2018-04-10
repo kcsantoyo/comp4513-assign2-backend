@@ -24,7 +24,9 @@ module.exports = {
         
         app.route('/api/prices/:sym/:mnth')
             .get(function(req, resp){
-            Price.find({name : req.params.sym, date : new RegExp(req.params.mnth)}, function(err, data) {
+            var monthString = req.params.mnth;
+            if (monthString < 10){monthString = '0' + req.params.mnth}
+            Price.find({name : req.params.sym, date : new RegExp('-'+monthString+'-')}, function(err, data) {
                 if (err) { resp.json({ message : 'Unable to find prices' }); } 
                 else { resp.json(data); }
             });
@@ -38,25 +40,5 @@ module.exports = {
             })
         });
         
-        var getMonthlyAverage = function(symbol, monthString) {
-            Price.aggregate([{$match: {symbol: symbol, date: {$regex: '-'+monthString+'-'}}},
-                             {$group: {avg: {$avg: "$close"}}
-                             }], function(err, data) {
-                if(err) {throw err}
-                else{console.log(data);}
-            });
-        }
-        
-        app.route('/api/prices/:sym/avgclose')
-            .get(function(req, resp){
-                var obj = [];
-                for(var i = 1; i < 13; i++) {
-                    
-                    var monthString = i;
-                    if(i < 10){monthString = '0' + 1}
-                    obj.push(getMonthlyAverage(req.params.sym, monthString))
-                }
-                console.log(obj);
-            });
     }
 }
