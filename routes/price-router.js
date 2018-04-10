@@ -32,9 +32,9 @@ module.exports = {
             });
         });
         
-        app.route('/api/prices/:sym/')
+        app.route('/api/prices/:sym/:date')
             .get(function(req, resp) {
-            Price.find({name: req.params.sym}, function(err, data){
+            Price.find({name: req.params.sym, date: req.params.date}, function(err, data){
                 if (err) { resp.json({ message : 'Unable to find prices' }); } 
                 else { resp.json(data); }
             })
