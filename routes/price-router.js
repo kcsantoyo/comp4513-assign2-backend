@@ -20,13 +20,7 @@ module.exports = {
             name: String
         });
         
-        var priceClose = new mongoose.Schema({
-            close: Number,
-            name: String
-        })
-        
         var Price = mongoose.model('prices', priceSchema);
-        var Close = mongoose.model('close', priceClose);
         
         app.route('/api/prices/:sym/:mnth')
             .get(function(req, resp){
