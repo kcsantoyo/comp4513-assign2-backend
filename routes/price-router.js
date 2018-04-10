@@ -47,13 +47,9 @@ module.exports = {
         
         app.route('/api/prices/avgclose/:sym')
             .get(function(req, resp){
-            Close.find({name: req.params.sym}, function(err, data) {
+            Close.find({name: req.param.sym}, function(err, data) {
                 if (err) { resp.json({ message : 'Unable to find prices' }); } 
-                else { 
-                    
-                    
-                    resp.json(_.map(data));
-                }
+                else { resp.json(_.map(data));}
             });
         });
     }
