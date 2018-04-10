@@ -16,14 +16,14 @@ module.exports = {
             subind: String,
             addr: String,
             dteAdd: String,
-            frqncy: Number
+            frequency: Number
         });
     
         var Portfolio = mongoose.model('portfolios', portSchema);
         
         app.route('/api/portfolios/:user')
             .get(function(req, resp) {
-            Portfolio.find({symbol : req.params.user}, function(err, data) { 
+            Portfolio.find({user : req.params.user}, function(err, data) { 
                 if (err) { resp.json({ message : 'Unable to find Companies' }); } 
                 else { resp.json(data); }
             });
