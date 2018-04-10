@@ -19,7 +19,7 @@ module.exports = {
         
         app.route('/api/portfolios/:user')
             .get(function(req, resp) {
-            Portfolio.find({user: req.params.user}, function(err, data) { 
+            Portfolio.find({ id: req.params.user}, function(err, data) { 
                 if (err) { resp.json({ message : 'Unable to find Portfolios' }); } 
                 else { resp.json(data); }
             });
