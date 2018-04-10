@@ -12,11 +12,11 @@
     "test": "node test.js"
   },
   "dependencies": {
+    "crypto-md5": "1.0.0",
     "ejs": "^2.5.6",
     "express": "^4.16.3",
     "lodash": "^4.17.5",
-    "mongoose": "^5.0.13",
-    "crypto-md5": "1.0.0"
+    "mongoose": "^5.0.14"
   },
   "devDependencies": {
     "request": "^2.81.0",

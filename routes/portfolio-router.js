@@ -18,10 +18,8 @@ module.exports = {
             dteAdd: String,
             frqncy: Number
         });
-        
-
-        
-        var Portfolio = mongoose.model('companies', portSchema);
+    
+        var Portfolio = mongoose.model('portfolios', portSchema);
         
         app.route('/api/portfolios/:user')
             .get(function(req, resp) {
